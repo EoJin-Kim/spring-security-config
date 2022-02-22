@@ -1,0 +1,50 @@
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:keystore/ssafy.p12
+    key-store-password: 123456
+    key-alias: ssafy
+    trust-store: classpath:keystore/ssafy.ts
+    trust-store-password: 123456
+
+
+
+spring:
+  jpa:
+    hibernate:
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+
+      ddl-auto: create-drop
+#      ddl-auto: update
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+
+  datasource:
+#    url: jdbc:mysql://localhost:3306/ssafy_web_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    hikari:
+#      username: ssafy
+#      password: ssafy
+    url: jdbc:h2:tcp://localhost/~/asap
+    username: sa
+    password: 1234
+    driver-class-name: org.h2.Driver
+
+jwt:
+  header: Authorization
+  #HS512 알고리즘을 사용할 것이기 때문에 512bit, 즉 64byte 이상의 secret key를 사용해야 한다.
+  #echo 'silvernine-tech-spring-boot-jwt-tutorial-secret-silvernine-tech-spring-boot-jwt-tutorial-secret'|base64
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  token-validity-in-seconds: 86400
